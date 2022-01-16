@@ -33,4 +33,10 @@ class IPTest extends TestCase
         $this->assertTrue(IP::isMatch('2a01:198:603:0:396e:4789:8e99:890f', ['2a01:198:603:0::/0', '192.168.1.0/31']));
         $this->assertFalse(IP::isMatch('2a01:198:603:0:396e:4789:8e99:890f', ['1a01:198:603:0::/65', '::1']));
     }
+
+    public function test_normalize()
+    {
+        $this->assertEquals('127.0.0.1', IP::normalize('127.0.0.1:80'));
+        $this->assertEquals('::1', IP::normalize('[::1]:80'));
+    }
 }

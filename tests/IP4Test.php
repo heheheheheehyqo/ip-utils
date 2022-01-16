@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class IP4Test extends TestCase
 {
-
     public function test_is_valid()
     {
         $this->assertTrue(IP4::isValid('127.0.0.1'));
@@ -36,4 +35,12 @@ class IP4Test extends TestCase
         $this->assertTrue(IP4::isMatch('131.0.72.199', ['131.0.72.0/22', '192.168.1.0/31']));
         $this->assertFalse(IP4::isMatch('132.0.72.199', ['131.0.72.0/22', '192.168.1.0/31']));
     }
+
+    public function test_normalize()
+    {
+        $this->assertEquals('127.0.0.1', IP4::normalize('127.0.0.1:80'));
+        $this->assertEquals('127.0.0.1', IP4::normalize('127.0.0.1'));
+        $this->assertEquals('fake', IP4::normalize('fake'));
+    }
+
 }

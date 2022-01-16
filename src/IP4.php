@@ -40,4 +40,13 @@ class IP4 implements IPInterface
 
         return ($intIP & $netmask) === ($intAddress & $netmask);
     }
+
+    public static function normalize(string $ip): string
+    {
+        if ($i = strpos($ip, ':')) {
+            return substr($ip, 0, $i);
+        }
+
+        return $ip;
+    }
 }

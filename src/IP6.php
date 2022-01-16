@@ -57,4 +57,13 @@ class IP6 implements IPInterface
 
         return true;
     }
+
+    public static function normalize(string $ip): string
+    {
+        if (strpos($ip, '[') === 0) {
+            return substr($ip, 1, strpos($ip, ']') - 1);
+        }
+
+        return $ip;
+    }
 }

@@ -13,6 +13,7 @@ composer require hyqo/ip-utils
 ```php
 IPInterface::isValid(string $ip): bool;
 IPInterface::isMatch(string $ip, string|array $subnets): bool;
+IPInterface::normalize(string $ip): string;
 ```
 
 ## Usage
@@ -27,6 +28,9 @@ IP::isMatch('131.0.72.199', '131.0.72.0/22'); //true
 IP::isMatch('131.0.76.199', '131.0.72.0/22'); //false
 
 IP::isMatch('132.0.72.199', ['131.0.72.0/22', '192.168.1.0/31']); //true
+
+IP::normalize('127.0.0.1:80'); //127.0.0.1
+IP::normalize('[::1]:80'); //::1
 ```
 
 The `IP` class automatically detects IP version, but you can use `IP4` and `IP6` classes with the same methods as well.
