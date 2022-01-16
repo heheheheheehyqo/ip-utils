@@ -9,7 +9,19 @@ class IP6 implements IPInterface
         return filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
     }
 
-    public static function inSubnet(string $ip, string $subnet): bool
+    /** @inheritDoc */
+    public static function isMatch(string $ip, $subnets): bool
+    {
+        foreach ((array)$subnets as $subnet) {
+            if (self::doMatch($ip, $subnet)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    protected static function doMatch(string $ip, string $subnet): bool
     {
         if (strpos($subnet, '/') === false) {
             $address = $subnet;
@@ -44,16 +56,5 @@ class IP6 implements IPInterface
         }
 
         return true;
-    }
-
-    public static function inAnySubnet(string $ip, array $subnets): bool
-    {
-        foreach ($subnets as $subnet) {
-            if (self::inSubnet($ip, $subnet)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

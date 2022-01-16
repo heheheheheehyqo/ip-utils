@@ -6,5 +6,6 @@ interface IPInterface
 {
     public static function isValid(string $ip): bool;
 
-    public static function inSubnet(string $ip, string $subnet): bool;
+    /** @param string|array $subnets */
+    public static function isMatch(string $ip, $subnets): bool;
 }

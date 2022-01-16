@@ -19,21 +19,18 @@ class IPTest extends TestCase
         $this->assertEquals(6, IP::version('0:0:0:0:0:0:0:1'));
     }
 
-    public function test_in_subnet()
+    public function test_is_match()
     {
-        $this->assertTrue(IP::inSubnet('192.168.1.0', '192.168.1.0/31'));
-        $this->assertFalse(IP::inSubnet('192.168.1.0', '::1'));
+        $this->assertTrue(IP::isMatch('192.168.1.0', '192.168.1.0/31'));
+        $this->assertFalse(IP::isMatch('192.168.1.0', '::1'));
 
-        $this->assertTrue(IP::inSubnet('0:0:0:0:0:0:0:1', '::1/64'));
-        $this->assertFalse(IP::inSubnet('0:0:0:0:0:0:0:1', '192.168.1.0/31'));
-    }
+        $this->assertTrue(IP::isMatch('0:0:0:0:0:0:0:1', '::1/64'));
+        $this->assertFalse(IP::isMatch('0:0:0:0:0:0:0:1', '192.168.1.0/31'));
 
-    public function test_in_any_subnet()
-    {
-        $this->assertTrue(IP::inAnySubnet('131.0.72.199', ['131.0.72.0/22', '192.168.1.0/31']));
-        $this->assertFalse(IP::inAnySubnet('132.0.72.199', ['131.0.72.0/22', '192.168.1.0/31']));
+        $this->assertTrue(IP::isMatch('131.0.72.199', ['131.0.72.0/22', '192.168.1.0/31']));
+        $this->assertFalse(IP::isMatch('132.0.72.199', ['131.0.72.0/22', '192.168.1.0/31']));
 
-        $this->assertTrue(IP::inAnySubnet('2a01:198:603:0:396e:4789:8e99:890f', ['2a01:198:603:0::/0', '192.168.1.0/31']));
-        $this->assertFalse(IP::inAnySubnet('2a01:198:603:0:396e:4789:8e99:890f', ['1a01:198:603:0::/65', '::1']));
+        $this->assertTrue(IP::isMatch('2a01:198:603:0:396e:4789:8e99:890f', ['2a01:198:603:0::/0', '192.168.1.0/31']));
+        $this->assertFalse(IP::isMatch('2a01:198:603:0:396e:4789:8e99:890f', ['1a01:198:603:0::/65', '::1']));
     }
 }

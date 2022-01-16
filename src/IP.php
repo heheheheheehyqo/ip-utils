@@ -6,32 +6,21 @@ class IP implements IPInterface
 {
     public static function isValid(string $ip): bool
     {
-        return self::version($ip) === 6 ? IP6::isValid($ip) : IP4::isValid($ip);
+        return filter_var($ip, FILTER_VALIDATE_IP);
     }
 
-    public static function inSubnet(string $ip, string $subnet): bool
+    /** @param string|array $subnets */
+    public static function isMatch(string $ip, $subnets): bool
     {
-        return self::version($ip) === 6 ? IP6::inSubnet($ip, $subnet) : IP4::inSubnet($ip, $subnet);
-    }
-
-    public static function inAnySubnet(string $ip, array $subnets): bool
-    {
-        $ipVersion = self::version($ip);
+        $version = self::version($ip);
+        $subnets = array_filter((array)$subnets, static function (string $subnet) use ($version) {
+            return $version === self::version($subnet);
+        });
 
         /** @var IPInterface $class */
-        $class = $ipVersion === 6 ? IP6::class : IP4::class;
+        $class = $version === 6 ? IP6::class : IP4::class;
 
-        foreach ($subnets as $subnet) {
-            if ($ipVersion !== self::version($subnet)) {
-                continue;
-            }
-
-            if ($class::inSubnet($ip, $subnet)) {
-                return true;
-            }
-        }
-
-        return false;
+        return $class::isMatch($ip, $subnets);
     }
 
     public static function version(string $ip): int
