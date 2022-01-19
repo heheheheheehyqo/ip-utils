@@ -49,4 +49,13 @@ class IP4 implements IPInterface
 
         return $ip;
     }
+
+    public static function port(string $ip): ?int
+    {
+        if ($i = strpos($ip, ':')) {
+            return (int)substr($ip, $i + 1);
+        }
+
+        return null;
+    }
 }

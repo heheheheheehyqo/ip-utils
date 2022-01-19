@@ -14,6 +14,7 @@ composer require hyqo/ip-utils
 IPInterface::isValid(string $ip): bool;
 IPInterface::isMatch(string $ip, string|array $subnets): bool;
 IPInterface::normalize(string $ip): string;
+IPInterface::port(string $ip): ?int;
 ```
 
 ## Usage
@@ -31,6 +32,9 @@ IP::isMatch('132.0.72.199', ['131.0.72.0/22', '192.168.1.0/31']); //true
 
 IP::normalize('127.0.0.1:80'); //127.0.0.1
 IP::normalize('[::1]:80'); //::1
+
+IP::port('127.0.0.1:80'); //80
+IP::port('[::1]:80'); //80
 ```
 
 The `IP` class automatically detects IP version, but you can use `IP4` and `IP6` classes with the same methods as well.

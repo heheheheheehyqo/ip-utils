@@ -39,4 +39,13 @@ class IPTest extends TestCase
         $this->assertEquals('127.0.0.1', IP::normalize('127.0.0.1:80'));
         $this->assertEquals('::1', IP::normalize('[::1]:80'));
     }
+
+    public function test_port()
+    {
+        $this->assertNull(IP::port('127.0.0.1'));
+        $this->assertEquals(80, IP::port('127.0.0.1:80'));
+
+        $this->assertNull(IP::port('::1'));
+        $this->assertEquals(443, IP::port('[::1]:443'));
+    }
 }

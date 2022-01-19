@@ -10,4 +10,6 @@ interface IPInterface
     public static function isMatch(string $ip, $subnets): bool;
 
     public static function normalize(string $ip): string;
+
+    public static function port(string $ip): ?int;
 }

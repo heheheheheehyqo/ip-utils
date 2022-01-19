@@ -30,11 +30,21 @@ class IP implements IPInterface
 
     public static function normalize(string $ip): string
     {
+        return self::callVersionMethod(__FUNCTION__, $ip);
+    }
+
+    public static function port(string $ip): ?int
+    {
+        return self::callVersionMethod(__FUNCTION__, $ip);
+    }
+
+    protected static function callVersionMethod(string $method, string $ip, ...$args)
+    {
         $version = self::version($ip);
 
         /** @var IPInterface $class */
         $class = $version === 6 ? IP6::class : IP4::class;
 
-        return $class::normalize($ip);
+        return $class::$method($ip, ...$args);
     }
 }

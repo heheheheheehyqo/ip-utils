@@ -66,4 +66,13 @@ class IP6 implements IPInterface
 
         return $ip;
     }
+
+    public static function port(string $ip): ?int
+    {
+        if ($i = strpos($ip, ']:')) {
+            return (int)substr($ip, $i + 2);
+        }
+
+        return null;
+    }
 }
