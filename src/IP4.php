@@ -23,6 +23,10 @@ class IP4 implements IPInterface
 
     protected static function doMatch(string $ip, string $subnet): bool
     {
+        if ($subnet === '0.0.0.0/0') {
+            return true;
+        }
+
         if (strpos($subnet, '/') === false) {
             $address = $subnet;
             $netmask = -1;

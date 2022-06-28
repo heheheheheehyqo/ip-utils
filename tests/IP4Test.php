@@ -16,6 +16,8 @@ class IP4Test extends TestCase
 
     public function test_is_match()
     {
+        $this->assertTrue(IP4::isMatch('192.168.1.1', '0.0.0.0/0'));
+
         $this->assertTrue(IP4::isMatch('192.168.1.1', '192.168.1.0/31'));
         $this->assertFalse(IP4::isMatch('192.168.1.2', '192.168.1.0/31'));
 

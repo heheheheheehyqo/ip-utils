@@ -18,6 +18,8 @@ class IP6Test extends TestCase
 
     public function test_is_match()
     {
+        $this->assertTrue(IP6::isMatch('2a01:198:603:0:396e:4789:8e99:890f', '::0/0'));
+
         $this->assertFalse(IP6::isMatch('0:0:0:0:0:0:0:1', '192.168.1.0/31'));
 
         $this->assertTrue(IP6::isMatch('0:0:0:0:0:0:0:1', '::1'));
