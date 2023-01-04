@@ -2,7 +2,7 @@
 
 ![Packagist Version](https://img.shields.io/packagist/v/hyqo/ip-utils?style=flat-square)
 ![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/hyqo/ip-utils?style=flat-square)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/hyqo/ip-utils/run-tests?style=flat-square)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/hyqo/ip-utils/tests.yml?branch=main&label=tests&style=flat-square)
 
 ## Install
 
